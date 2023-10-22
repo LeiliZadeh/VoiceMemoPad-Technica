@@ -1,0 +1,18 @@
+<!-- transcription/templates/transcription/transcribe.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech to Text Transcription</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Transcribe</button>
+    </form>
+    {% if transcript %}
+        <h2>Transcript:</h2>
+        <p>{{ transcript }}</p>
+    {% endif %}
+</body>
+</html>
