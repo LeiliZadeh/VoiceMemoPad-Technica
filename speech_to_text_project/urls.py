@@ -16,12 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from transcription.views import *
+import transcription.views as views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('start-recording/', views.start_recording, name='start_recording'),
-    path('transcript/', views.speech_to_text, name='speech_to_text'),
+    path('transcript/', views.transcribe, name='speech_to_text'),
 ]

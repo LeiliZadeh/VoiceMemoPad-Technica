@@ -36,7 +36,7 @@
 
         .record-button {
             /* Make sure the path to image01.png is correct */
-            background-image: url("image01.png");
+            background-image: url("static/image01.png");
             background-size: cover;
             width: 300px;
             height: 250px;
@@ -70,7 +70,7 @@
         .image-in-textbox {
             width: 100%;
             height: 100%;
-            background-image: url("image02.png");
+            background-image: url("static/image02.png");
             background-size: cover;
         }
     </style>
@@ -102,6 +102,7 @@
             fetch('/transcript/')
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data.text);
                     const textContainer = document.getElementById('text-container');
                     const newH2 = document.createElement('h2');
                     newH2.innerText = `Script Recording 0${count}`;

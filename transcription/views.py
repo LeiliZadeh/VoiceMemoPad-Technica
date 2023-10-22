@@ -10,7 +10,7 @@ def transcribe(request):
     transcript = None
     file_url = "/path/to/your/downloaded/file"  # Update with the actual file URL
 
-    if request.method == 'POST':
+    if request.method == 'GET':
         # Your transcription code here (similar to your existing code)
         client = speech.SpeechClient.from_service_account_json("confidential.json")
         r = sr.Recognizer()
@@ -25,6 +25,7 @@ def transcribe(request):
             sample_rate_hertz=18000,
             language_code="en-US",
         )
+        
 
         audio = speech.RecognitionAudio(content=audio.frame_data)
 
@@ -33,14 +34,11 @@ def transcribe(request):
         for result in response.results:
             transcript = result.alternatives[0].transcript
 
-    return JsonResponse({'url': file_url})
+    return JsonResponse({'url': file_url, 'text': transcript})
 
 def index(request):
-    return render(request, 'base.html')
+    return render(request, 'transcribe.html')
 
 def start_recording(request):
     subprocess.run(['python', 'main.py'])
     return HttpResponse("Recording and transcription begun.")
-
-def speech_to_text(request):
-    main.transcribe_microphone()
