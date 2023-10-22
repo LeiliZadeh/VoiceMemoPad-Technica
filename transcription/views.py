@@ -1,7 +1,7 @@
 # transcription/views.py
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from google.cloud import speech
 import speech_recognition as sr
 import subprocess
@@ -9,6 +9,7 @@ import main
 
 def transcribe(request):
     transcript = None
+    file_url = "/path/to/your/downloaded/file"  # Update with the actual file URL
 
     if request.method == 'POST':
         # Your transcription code here (similar to your existing code)
@@ -33,7 +34,7 @@ def transcribe(request):
         for result in response.results:
             transcript = result.alternatives[0].transcript
 
-    return render(request, 'transcription/transcribe.html', {'transcript': transcript})
+    return JsonResponse({'url': file_url})
 
 def index(request):
     return render(request, 'base.html')

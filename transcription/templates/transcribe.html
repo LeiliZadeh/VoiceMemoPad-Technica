@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <style>
         h1 {
@@ -8,6 +9,14 @@
             font-family: Trebuchet MS;
             left: 0px;
             top: 0px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 20px;
+            font-family: Trebuchet MS;
+            left: 50px;
+            top: -130px;
         }
 
         p {
@@ -21,12 +30,7 @@
         }
 
         body {
-            background: linear-gradient(
-                to bottom, 
-                rgb(239, 147, 147) 0%, 
-                rgba(239, 147, 147) 7%,
-                white 7%,
-                white 100%);
+            background: linear-gradient(to bottom, rgb(239, 147, 147) 0%, rgba(239, 147, 147) 7%, white 7%, white 100%);
             background-size: auto 1600px;
         }
 
@@ -34,13 +38,44 @@
             /* Make sure the path to image01.png is correct */
             background-image: url("image01.png");
             background-size: cover;
-            width: 300px; 
-            height: 250px; 
+            width: 300px;
+            height: 250px;
             border: none;
             background-color: white;
         }
+
+        .text-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 auto;
+            width: 85%;
+            height: 400px;
+            background-color: white;
+            border: 5px solid rgb(239, 147, 147);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .textbox-button {
+            width: 80px;
+            height: 80px;
+            border: none;
+            background-color: white;
+            position: absolute;
+            right: 5%;
+            top: 5%;
+        }
+
+        .image-in-textbox {
+            width: 100%;
+            height: 100%;
+            background-image: url("image02.png");
+            background-size: cover;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Voice Memo Pad</h1>
@@ -48,15 +83,41 @@
         <p>Press Record to Convert Verbal Clip</p>
         <button class="record-button" onclick="startRecording()"></button>
         <br><br>
-        <!-- Provide a proper URL for the 'Download Text File' functionality -->
-        <button class="download-button" onclick="downloadFile()">Download Text File</button>
+        <div class="text-container" id="text-container">
+            <!-- Elements will be dynamically added here -->
+        </div>
     </div>
 
     <script>
+        let recordingCount = 0;
+
         function startRecording() {
             console.log("Record button clicked");
+            recordingCount++;
+            createRecordingElements(recordingCount);
             // You can initiate recording or speech recognition here
         }
+
+        function createRecordingElements(count) {
+            fetch('/transcript/')
+                .then(response => response.json())
+                .then(data => {
+                    const textContainer = document.getElementById('text-container');
+                    const newH2 = document.createElement('h2');
+                    newH2.innerText = `Script Recording 0${count}`;
+                    const newButton = document.createElement('button');
+                    newButton.classList.add('textbox-button');
+                    newButton.onclick = function () {
+                        window.location.href = data.url; // Assuming your JSON response has the file URL
+                    };
+                    const downloadText = document.createElement('p');
+                    downloadText.innerText = 'Click here to download';
+                    downloadText.style.display = 'inline-block';
+                    textContainer.appendChild(newH2);
+                    textContainer.appendChild(downloadText);
+                    textContainer.appendChild(newButton);
+                });
+    }
 
         function downloadFile() {
             // Provide the correct URL for downloading the text file
@@ -64,4 +125,5 @@
         }
     </script>
 </body>
+
 </html>
