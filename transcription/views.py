@@ -4,8 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from google.cloud import speech
 import speech_recognition as sr
-import subprocess
-import main
+import Main
 
 def transcribe(request):
     transcript = None
