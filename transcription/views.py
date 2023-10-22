@@ -4,8 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from google.cloud import speech
 import speech_recognition as sr
-import subprocess
-import main
+import Main
 
 def transcribe(request):
     transcript = None
@@ -34,13 +33,3 @@ def transcribe(request):
             transcript = result.alternatives[0].transcript
 
     return render(request, 'transcription/transcribe.html', {'transcript': transcript})
-
-def index(request):
-    return render(request, 'base.html')
-
-def start_recording(request):
-    subprocess.run(['python', 'main.py'])
-    return HttpResponse("Recording and transcription begun.")
-
-def speech_to_text(request):
-    main.transcribe_microphone()
