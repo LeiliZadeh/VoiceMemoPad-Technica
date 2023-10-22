@@ -18,7 +18,7 @@ def transcribe(request):
         with sr.Microphone(sample_rate=16000, chunk_size=1024) as source:
             r.adjust_for_ambient_noise(source)
             print("Listening for speech...")
-            audio = r.listen(source, timeout=None)
+            audio = r.listen(source, timeout=10)
 
         config = speech.RecognitionConfig(
             encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,

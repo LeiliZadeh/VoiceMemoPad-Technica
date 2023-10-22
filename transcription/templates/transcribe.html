@@ -82,6 +82,9 @@
         <br>
         <p>Press Record to Convert Verbal Clip</p>
         <button class="record-button" onclick="startRecording()"></button>
+        <div id="recordingContainer"> 
+            
+        </div>
         <br><br>
         <div class="text-container" id="text-container">
             <!-- Elements will be dynamically added here -->
@@ -93,6 +96,13 @@
 
         function startRecording() {
             console.log("Record button clicked");
+            const recordingContainer = document.getElementById('recordingContainer');
+            recordingContainer.innerText = "Recording...";
+            setTimeout(() => {
+             const notrecordingContainer = document.getElementById('recordingContainer');
+            notrecordingContainer.innerText = "Not Recording";
+            }, 10*1000)
+
             recordingCount++;
             createRecordingElements(recordingCount);
             // You can initiate recording or speech recognition here
@@ -104,19 +114,7 @@
                 .then(data => {
                     console.log(data.text);
                     const textContainer = document.getElementById('text-container');
-                    const newH2 = document.createElement('h2');
-                    newH2.innerText = `Script Recording 0${count}`;
-                    const newButton = document.createElement('button');
-                    newButton.classList.add('textbox-button');
-                    newButton.onclick = function () {
-                        window.location.href = data.url; // Assuming your JSON response has the file URL
-                    };
-                    const downloadText = document.createElement('p');
-                    downloadText.innerText = 'Click here to download';
-                    downloadText.style.display = 'inline-block';
-                    textContainer.appendChild(newH2);
-                    textContainer.appendChild(downloadText);
-                    textContainer.appendChild(newButton);
+                    textContainer.innerText = data.text;
                 });
     }
 
