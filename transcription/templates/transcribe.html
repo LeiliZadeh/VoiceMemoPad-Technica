@@ -1,18 +1,67 @@
-<!-- transcription/templates/transcription/transcribe.html -->
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Speech to Text Transcription</title>
+    <style>
+        h1 {
+            text-align: center;
+            font-size: 50px;
+            font-family: Trebuchet MS;
+            left: 0px;
+            top: 0px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 30px;
+            font-family: Trebuchet MS;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        body {
+            background: linear-gradient(
+                to bottom, 
+                rgb(239, 147, 147) 0%, 
+                rgba(239, 147, 147) 7%,
+                white 7%,
+                white 100%);
+            background-size: auto 1600px;
+        }
+
+        .record-button {
+            /* Make sure the path to image01.png is correct */
+            background-image: url("image01.png");
+            background-size: cover;
+            width: 300px; 
+            height: 250px; 
+            border: none;
+            background-color: white;
+        }
+    </style>
 </head>
 <body>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Transcribe</button>
-    </form>
-    {% if transcript %}
-        <h2>Transcript:</h2>
-        <p>{{ transcript }}</p>
-    {% endif %}
+    <div class="container">
+        <h1>Voice Memo Pad</h1>
+        <br>
+        <p>Press Record to Convert Verbal Clip</p>
+        <button class="record-button" onclick="startRecording()"></button>
+        <br><br>
+        <!-- Provide a proper URL for the 'Download Text File' functionality -->
+        <button class="download-button" onclick="downloadFile()">Download Text File</button>
+    </div>
+
+    <script>
+        function startRecording() {
+            console.log("Record button clicked");
+            // You can initiate recording or speech recognition here
+        }
+
+        function downloadFile() {
+            // Provide the correct URL for downloading the text file
+            // Example: window.location.href = "/download-transcript/"
+        }
+    </script>
 </body>
 </html>
